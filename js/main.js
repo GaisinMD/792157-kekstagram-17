@@ -17,7 +17,6 @@ var commentatorsNameList = [
 var photosList = [];
 var pictureTemplate = document.querySelector('#picture').content.querySelector('.picture');
 var pictureList = document.querySelector('.pictures');
-var fragment = document.createDocumentFragment();
 
 var shuffleList = function (list) {
   var y;
@@ -107,16 +106,17 @@ var generatePicture = function (template, pictureItem) {
   return templateElement;
 };
 
-var generatePicturesList = function (list) {
+var generatePicturesList = function (list, parentElement) {
+  var fragment = document.createDocumentFragment();
+
   for (var i = 0; i < list.length; i++) {
     fragment.appendChild(generatePicture(pictureTemplate, list[i]));
   }
+  parentElement.appendChild(fragment);
 };
 
 photosUlrList = generatePhotosUrlList(photosQuantity);
 commentsListAll = generatePhotoCommentsList(photosQuantity);
 photosList = generatePhotos(photosQuantity, photosUlrList, commentsListAll);
 
-generatePicturesList(photosList);
-
-pictureList.appendChild(fragment);
+generatePicturesList(photosList, pictureList);
