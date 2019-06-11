@@ -15,7 +15,7 @@ var commentatorsNameList = [
   'Алина', 'Полина', 'Дарья', 'Коля', 'Максим', 'Вадим'
 ];
 var photosList = [];
-var picture = document.querySelector('#picture').content.querySelector('.picture');
+var pictureTemplate = document.querySelector('#picture').content.querySelector('.picture');
 var pictureList = document.querySelector('.pictures');
 var fragment = document.createDocumentFragment();
 
@@ -103,12 +103,20 @@ var generatePicture = function (template, pictureItem) {
   var templateElement = template.cloneNode(true);
   templateElement.querySelector('.picture__img').src = pictureItem.url;
   templateElement.querySelector('.picture__likes').textContent = pictureItem.likes + '';
-  templateElement.querySelector('.picture__comments').textContent = pictureItem.comments.length;
+  templateElement.querySelector('.picture__comments').textContent = pictureItem.comments.length + '';
   return templateElement;
+};
+
+var generatePicturesList = function (list) {
+  for (var i = 0; i < list.length; i++) {
+    fragment.appendChild(generatePicture(pictureTemplate, list[i]));
+  }
 };
 
 photosUlrList = generatePhotosUrlList(photosQuantity);
 commentsListAll = generatePhotoCommentsList(photosQuantity);
 photosList = generatePhotos(photosQuantity, photosUlrList, commentsListAll);
 
-console.log(photosList);
+generatePicturesList(photosList);
+
+pictureList.appendChild(fragment);
