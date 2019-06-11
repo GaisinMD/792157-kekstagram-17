@@ -2,7 +2,8 @@
 
 var photosQuantity = 25;
 var photosUlrList = [];
-var commentsList = [
+var commentsListAll = [];
+var commentsTextList = [
   'Всё отлично!',
   'В целом всё неплохо. Но не всё.',
   'Когда вы делаете фотографию, хорошо бы убирать палец из кадра. В конце концов это просто непрофессионально.',
@@ -14,6 +15,9 @@ var commentatorsNameList = [
   'Алина', 'Полина', 'Дарья', 'Коля', 'Максим', 'Вадим'
 ];
 var photosList = [];
+var picture = document.querySelector('#picture').content.querySelector('.picture');
+var pictureList = document.querySelector('.pictures');
+var fragment = document.createDocumentFragment();
 
 var shuffleList = function (list) {
   var y;
@@ -49,10 +53,11 @@ var generateCommentatorList = function (names) {
   return listCommentators;
 };
 
-var generatePhotoComment = function (quantity) {
+var generatePhotoComment = function () {
   var comments = [];
   var listCommentators = generateCommentatorList(commentatorsNameList);
-  for (var i = 0; i < quantity; i++) {
+  var quantityRandom = Math.round(Math.random() * 3 + 1);
+  for (var i = 0; i < quantityRandom; i++) {
     var comment = {};
     comment.message = '';
     var countComments = Math.round(Math.random());
@@ -61,7 +66,7 @@ var generatePhotoComment = function (quantity) {
     comment.avatar = listCommentators[countComentator].avatar;
 
     for (var j = 0; j <= countComments; j++) {
-      comment.message += commentsList[Math.floor(Math.random() * (commentsList.length))];
+      comment.message += commentsTextList[Math.floor(Math.random() * (commentsTextList.length))];
       if (countComments === 1 && j === 0) {
         comment.message += ' ';
       }
@@ -72,6 +77,14 @@ var generatePhotoComment = function (quantity) {
     comments.push(comment);
   }
   return comments;
+};
+
+var generatePhotoCommentsList = function (quantity) {
+  var commentsList = [];
+  for (var i = 0; i < quantity; i++) {
+    commentsList.push(generatePhotoComment());
+  }
+  return commentsList;
 };
 
 var generatePhotos = function (quantity, urls, comments) {
@@ -86,8 +99,16 @@ var generatePhotos = function (quantity, urls, comments) {
   return photos;
 };
 
-photosUlrList = generatePhotosUrlList(photosQuantity);
-commentsList = generatePhotoComment(photosQuantity, commentatorsNameList);
-photosList = generatePhotos(photosQuantity, photosUlrList, commentsList);
+var generatePicture = function (template, pictureItem) {
+  var templateElement = template.cloneNode(true);
+  templateElement.querySelector('.picture__img').src = pictureItem.url;
+  templateElement.querySelector('.picture__likes').textContent = pictureItem.likes + '';
+  templateElement.querySelector('.picture__comments').textContent = pictureItem.comments.length;
+  return templateElement;
+};
 
-// console.log(photosList);
+photosUlrList = generatePhotosUrlList(photosQuantity);
+commentsListAll = generatePhotoCommentsList(photosQuantity);
+photosList = generatePhotos(photosQuantity, photosUlrList, commentsListAll);
+
+console.log(photosList);
