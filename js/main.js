@@ -1,5 +1,9 @@
 'use strict';
 
+var MAX_QUANTITY_COMMENTS = 3;
+var MAX_QUANTITY_TEXT_COMMENTS = 2;
+var MAX_QUANTITY_LIKES = 250;
+
 var photosQuantity = 25;
 var photosUlrList = [];
 var commentsListAll = [];
@@ -18,11 +22,16 @@ var photosList = [];
 var pictureTemplate = document.querySelector('#picture').content.querySelector('.picture');
 var pictureList = document.querySelector('.pictures');
 
+var randomInteger = function (min, max) {
+  var rand = min + Math.random() * (max + 1 - min);
+  return Math.floor(rand);
+};
+
 var shuffleList = function (list) {
   var y;
   var x;
   for (var i = list.length - 1; i > 0; i--) {
-    y = Math.floor(Math.random() * (i + 1));
+    y = randomInteger(0, i);
     x = list[i];
     list[i] = list[y];
     list[y] = x;
@@ -52,26 +61,25 @@ var generateCommentatorList = function (names) {
   return listCommentators;
 };
 
-var generatePhotoComment = function () {
+var generatePhotoComment = function (commentatorsList) {
   var comments = [];
-  var listCommentators = generateCommentatorList(commentatorsNameList);
-  var quantityRandom = Math.round(Math.random() * 3 + 1);
+  var quantityRandom = randomInteger(1, MAX_QUANTITY_COMMENTS);
   for (var i = 0; i < quantityRandom; i++) {
     var comment = {};
     comment.message = '';
-    var countComments = Math.round(Math.random());
-    var countComentator = Math.floor(Math.random() * (listCommentators.length));
+    var countComments = randomInteger(1, MAX_QUANTITY_TEXT_COMMENTS);
+    var countComentator = randomInteger(0, commentatorsList.length - 1);
 
-    comment.avatar = listCommentators[countComentator].avatar;
+    comment.avatar = commentatorsList[countComentator].avatar;
 
     for (var j = 0; j <= countComments; j++) {
-      comment.message += commentsTextList[Math.floor(Math.random() * (commentsTextList.length))];
+      comment.message += commentsTextList[randomInteger(0, commentsTextList.length - 1)];
       if (countComments === 1 && j === 0) {
         comment.message += ' ';
       }
     }
 
-    comment.name = listCommentators[countComentator].name;
+    comment.name = commentatorsList[countComentator].name;
 
     comments.push(comment);
   }
@@ -80,8 +88,9 @@ var generatePhotoComment = function () {
 
 var generatePhotoCommentsList = function (quantity) {
   var commentsList = [];
+  var listCommentators = generateCommentatorList(commentatorsNameList);
   for (var i = 0; i < quantity; i++) {
-    commentsList.push(generatePhotoComment());
+    commentsList.push(generatePhotoComment(listCommentators));
   }
   return commentsList;
 };
@@ -91,7 +100,7 @@ var generatePhotos = function (quantity, urls, comments) {
   for (var i = 0; i < quantity; i++) {
     var photoObject = {};
     photoObject.url = urls[i];
-    photoObject.likes = Math.ceil(Math.random() * 250);
+    photoObject.likes = randomInteger(1, MAX_QUANTITY_LIKES);
     photoObject.comments = comments[i];
     photos.push(photoObject);
   }
