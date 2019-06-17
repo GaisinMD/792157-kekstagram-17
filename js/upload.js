@@ -17,8 +17,8 @@ var photoSizeValue = photoChangeSize.querySelector('.scale__control--value');
 var photosize;
 
 var imageUploadEffects = document.querySelector('.effects__list');
-var imageUploadEffectsLevel = document.querySelector('.img-upload__effect-level');
-var imageEffectPin = document.querySelector('.effect-level__pin');
+// var imageUploadEffectsLevel = document.querySelector('.img-upload__effect-level');
+// var imageEffectPin = document.querySelector('.effect-level__pin');
 
 var showElement = function (element) {
   if (element.classList.contains('hidden')) {
@@ -56,8 +56,6 @@ var changeSizePhotoPreview = function (change) {
   photoPreviewImage.style = 'transform: scale(' + (photosize / 100) + ')';
 };
 
-var applyEffect = function (effect) {};
-
 uploadFile.addEventListener('change', function () {
   showPhotoEditForm(photoEditForm);
 });
@@ -75,16 +73,15 @@ photoSizeSmaller.addEventListener('click', function () {
   changeSizePhotoPreview('smaller');
 });
 
-imageUploadEffects.addEventListener('click', function (evt) {
-  var target = evt.target;
-  console.log(evt.target.classList);
+imageUploadEffects.addEventListener('click', function () {
+  // console.log(evt);
 
-  while (target !== imageUploadEffects) {
+  /* while (target !== imageUploadEffects) {
     if (target.tagName === 'input') {
 
       applyEffect(target);
       return;
     }
     target = target.parentNode;
-  }
+  } */
 });
