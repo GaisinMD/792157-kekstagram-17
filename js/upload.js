@@ -19,6 +19,7 @@ var photoSizeValue = photoChangeSize.querySelector('.scale__control--value');
 var photosize;
 
 var imageUploadEffects = document.querySelector('.effects__list');
+var noEffectImage = imageUploadEffects.children[0].children[0];
 var imageUploadEffectsLevel = document.querySelector('.img-upload__effect-level');
 var imageEffectLevelValue = imageUploadEffectsLevel.querySelector('.effect-level__value');
 var imageEffectPin = imageUploadEffectsLevel.querySelector('.effect-level__pin');
@@ -48,7 +49,7 @@ var showPhotoEditForm = function (element) {
   photosize = PHOTO_SIZE_MAX;
   showElement(element);
   document.addEventListener('keydown', PhotoEditFormEscPress);
-  applyPicturefilter(imageUploadEffects.children[0].children[0]);
+  applyPicturefilter(noEffectImage);
 };
 
 var hidePhotoEditForm = function (element) {
