@@ -2,7 +2,7 @@
 
 var ESC_KEYCODE = 27;
 var PHOTO_SIZE_MAX = 100;
-var PHOTO_SIZE_MIN = 0;
+var PHOTO_SIZE_MIN = 25;
 var PHOTO_SIZE_CHANGE_STEP = 25;
 var PHOTO_EFFECT_VOLUME_DEFAULT = 100;
 
@@ -13,8 +13,6 @@ var photoEditFormClose = photoEditForm.querySelector('#upload-cancel');
 var photoPreview = document.querySelector('.img-upload__preview');
 var photoPreviewImage = photoPreview.getElementsByTagName('img')[0];
 var photoChangeSize = document.querySelector('.img-upload__scale');
-var photoSizeBigger = photoChangeSize.querySelector('.scale__control--bigger');
-var photoSizeSmaller = photoChangeSize.querySelector('.scale__control--smaller');
 var photoSizeValue = photoChangeSize.querySelector('.scale__control--value');
 var photosize;
 
@@ -48,19 +46,19 @@ var hideElement = function (element) {
 var showPhotoEditForm = function (element) {
   photosize = PHOTO_SIZE_MAX;
   showElement(element);
-  document.addEventListener('keydown', PhotoEditFormEscPress);
+  document.addEventListener('keydown', onPhotoEditFormEscPress);
   applyPicturefilter(noEffectImage);
 };
 
 var hidePhotoEditForm = function (element) {
   if (!element.classList.contains('hidden')) {
     element.classList.add('hidden');
-    document.removeEventListener('keydown', PhotoEditFormEscPress);
+    document.removeEventListener('keydown', onPhotoEditFormEscPress);
     uploadFile.value = '';
   }
 };
 
-var PhotoEditFormEscPress = function (evt) {
+var onPhotoEditFormEscPress = function (evt) {
   if (evt.keyCode === ESC_KEYCODE) {
     hidePhotoEditForm(photoEditForm);
   }
@@ -100,7 +98,7 @@ var addEffectLevelValue = function (percent, effect) {
   photoPreview.style = 'filter: ' + effect[0] + '(' + valueInput + effect[3] + ')';
 };
 
-var randomEffectValue = function () {
+var getRandomEffectValue = function () {
   var randomPercent = Math.round(Math.random() * 100);
   addEffectLevelValue(randomPercent, effects[value]);
 };
@@ -114,12 +112,15 @@ photoEditFormClose.addEventListener('click', function (evt) {
   hidePhotoEditForm(photoEditForm);
 });
 
-photoSizeBigger.addEventListener('click', function () {
-  changeSizePhotoPreview('bigger');
-});
-
-photoSizeSmaller.addEventListener('click', function () {
-  changeSizePhotoPreview('smaller');
+photoChangeSize.addEventListener('click', function (evt) {
+  var button = '';
+  if (evt.target.classList.contains('scale__control--bigger')) {
+    button = 'bigger';
+  }
+  if (evt.target.classList.contains('scale__control--smaller')) {
+    button = 'smaller';
+  }
+  changeSizePhotoPreview(button);
 });
 
 imageUploadEffects.addEventListener('change', function (evt) {
@@ -128,5 +129,4 @@ imageUploadEffects.addEventListener('change', function (evt) {
   }
 });
 
-imageEffectPin.addEventListener('mouseup', randomEffectValue);
-
+imageEffectPin.addEventListener('mouseup', getRandomEffectValue);
