@@ -64,10 +64,10 @@ var onPhotoEditFormEscPress = function (evt) {
   }
 };
 
-var changeSizePhotoPreview = function (change) {
-  if (change === 'bigger' && photosize < PHOTO_SIZE_MAX) {
+var changeSizePhotoPreview = function (button) {
+  if (button.contains('scale__control--bigger') && photosize < PHOTO_SIZE_MAX) {
     photosize += PHOTO_SIZE_CHANGE_STEP;
-  } else if ((change === 'smaller' && photosize > PHOTO_SIZE_MIN)) {
+  } else if ((button.contains('scale__control--smaller') && photosize > PHOTO_SIZE_MIN)) {
     photosize -= PHOTO_SIZE_CHANGE_STEP;
   }
   photoSizeValue.value = '' + photosize + '%';
@@ -113,20 +113,11 @@ photoEditFormClose.addEventListener('click', function (evt) {
 });
 
 photoChangeSize.addEventListener('click', function (evt) {
-  var button = '';
-  if (evt.target.classList.contains('scale__control--bigger')) {
-    button = 'bigger';
-  }
-  if (evt.target.classList.contains('scale__control--smaller')) {
-    button = 'smaller';
-  }
-  changeSizePhotoPreview(button);
+  changeSizePhotoPreview(evt.target.classList);
 });
 
 imageUploadEffects.addEventListener('change', function (evt) {
-  if (evt.target.tagName === 'INPUT') {
-    applyPicturefilter(evt.target);
-  }
+  applyPicturefilter(evt.target);
 });
 
 imageEffectPin.addEventListener('mouseup', getRandomEffectValue);
