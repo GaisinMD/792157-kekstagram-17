@@ -20,6 +20,7 @@ var imageUploadEffects = document.querySelector('.effects__list');
 var noEffectImage = imageUploadEffects.children[0].children[0];
 var imageUploadEffectsLevel = document.querySelector('.img-upload__effect-level');
 var imageEffectLevelValue = imageUploadEffectsLevel.querySelector('.effect-level__value');
+var imageEffectLine = imageUploadEffectsLevel.querySelector('.effect-level__line');
 var imageEffectPin = imageUploadEffectsLevel.querySelector('.effect-level__pin');
 var imageEffectDepth = imageUploadEffectsLevel.querySelector('.effect-level__depth');
 var effects = {
@@ -102,9 +103,10 @@ var addEffectLevelValue = function (percent, effect) {
   photoPreview.style = 'filter: ' + effect[0] + '(' + valueInput + effect[3] + ')';
 };
 
-var getRandomEffectValue = function () {
-  var randomPercent = Math.round(Math.random() * 100);
-  addEffectLevelValue(randomPercent, effects[value]);
+var getEffectValue = function (percent) {
+  if (percent >= 0 && percent <= 100) {
+    addEffectLevelValue(percent, effects[value]);
+  }
 };
 
 uploadFile.addEventListener('change', function () {
@@ -122,4 +124,29 @@ imageUploadEffects.addEventListener('change', function (evt) {
   applyPicturefilter(evt.target);
 });
 
-imageEffectPin.addEventListener('mouseup', getRandomEffectValue);
+imageEffectPin.addEventListener('mousedown', function (evt) {
+  evt.preventDefault();
+
+  var startCoords = evt.clientX;
+
+  var onMouseMove = function (moveEvt) {
+    moveEvt.preventDefault();
+
+    var lineWidth = imageEffectLine.clientWidth;
+    var shift = startCoords - moveEvt.clientX;
+
+    startCoords = moveEvt.clientX;
+
+    getEffectValue((imageEffectPin.offsetLeft - shift) * 100 / lineWidth);
+  };
+
+  var onMouseUp = function (upEvt) {
+    upEvt.preventDefault();
+
+    document.removeEventListener('mousemove', onMouseMove);
+    document.removeEventListener('mouseup', onMouseUp);
+  };
+
+  document.addEventListener('mousemove', onMouseMove);
+  document.addEventListener('mouseup', onMouseUp);
+});
