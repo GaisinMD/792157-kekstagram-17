@@ -31,6 +31,8 @@ var effects = {
 };
 var value = '';
 
+var comment = document.querySelector('.text__description');
+
 var showElement = function (element) {
   if (element.classList.contains('hidden')) {
     element.classList.remove('hidden');
@@ -48,6 +50,8 @@ var showPhotoEditForm = function (element) {
   showElement(element);
   document.addEventListener('keydown', onPhotoEditFormEscPress);
   applyPicturefilter(noEffectImage);
+  photoSizeValue.value = '100%';
+  photoPreviewImage.style = 'transform: scale(1)';
 };
 
 var hidePhotoEditForm = function (element) {
@@ -59,15 +63,15 @@ var hidePhotoEditForm = function (element) {
 };
 
 var onPhotoEditFormEscPress = function (evt) {
-  if (evt.keyCode === ESC_KEYCODE) {
+  if (evt.keyCode === ESC_KEYCODE && evt.target !== comment) {
     hidePhotoEditForm(photoEditForm);
   }
 };
 
 var changeSizePhotoPreview = function (button) {
-  if (button.contains('scale__control--bigger') && photosize < PHOTO_SIZE_MAX) {
+  if (button.target.classList.contains('scale__control--bigger') && photosize < PHOTO_SIZE_MAX) {
     photosize += PHOTO_SIZE_CHANGE_STEP;
-  } else if ((button.contains('scale__control--smaller') && photosize > PHOTO_SIZE_MIN)) {
+  } else if ((button.target.classList.contains('scale__control--smaller') && photosize > PHOTO_SIZE_MIN)) {
     photosize -= PHOTO_SIZE_CHANGE_STEP;
   }
   photoSizeValue.value = '' + photosize + '%';
@@ -112,9 +116,7 @@ photoEditFormClose.addEventListener('click', function (evt) {
   hidePhotoEditForm(photoEditForm);
 });
 
-photoChangeSize.addEventListener('click', function (evt) {
-  changeSizePhotoPreview(evt.target.classList);
-});
+photoChangeSize.addEventListener('click', changeSizePhotoPreview);
 
 imageUploadEffects.addEventListener('change', function (evt) {
   applyPicturefilter(evt.target);
