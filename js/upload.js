@@ -31,6 +31,8 @@ var effects = {
 };
 var value = '';
 
+var comment = document.querySelector('.text__description');
+
 var showElement = function (element) {
   if (element.classList.contains('hidden')) {
     element.classList.remove('hidden');
@@ -48,6 +50,8 @@ var showPhotoEditForm = function (element) {
   showElement(element);
   document.addEventListener('keydown', onPhotoEditFormEscPress);
   applyPicturefilter(noEffectImage);
+  photoSizeValue.value = '100%';
+  photoPreviewImage.style = 'transform: scale(1)';
 };
 
 var hidePhotoEditForm = function (element) {
@@ -55,13 +59,11 @@ var hidePhotoEditForm = function (element) {
     element.classList.add('hidden');
     document.removeEventListener('keydown', onPhotoEditFormEscPress);
     uploadFile.value = '';
-    photoSizeValue.value = '100%';
-    photoPreviewImage.style = 'transform: scale(1)';
   }
 };
 
 var onPhotoEditFormEscPress = function (evt) {
-  if (evt.keyCode === ESC_KEYCODE) {
+  if (evt.keyCode === ESC_KEYCODE && evt.target !== comment) {
     hidePhotoEditForm(photoEditForm);
   }
 };
