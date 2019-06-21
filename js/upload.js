@@ -83,8 +83,8 @@ var changeSizePhotoPreview = function (button) {
 var applyPicturefilter = function (element) {
   value = element.value;
 
-  photoPreviewImage.classList = '';
-  photoPreviewImage.classList.add('effects__preview--' + value);
+  photoPreview.classList = 'img-upload__preview';
+  photoPreview.classList.add('effects__preview--' + value);
 
   if (value === 'none') {
     hideElement(imageUploadEffectsLevel);
