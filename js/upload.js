@@ -5,6 +5,7 @@ var PHOTO_SIZE_MAX = 100;
 var PHOTO_SIZE_MIN = 25;
 var PHOTO_SIZE_CHANGE_STEP = 25;
 var PHOTO_EFFECT_VOLUME_DEFAULT = 100;
+var MAX_PERCENT = 100;
 
 var uploadFile = document.querySelector('#upload-file');
 var photoEditForm = document.querySelector('.img-upload__overlay');
@@ -20,6 +21,7 @@ var imageUploadEffects = document.querySelector('.effects__list');
 var noEffectImage = imageUploadEffects.children[0].children[0];
 var imageUploadEffectsLevel = document.querySelector('.img-upload__effect-level');
 var imageEffectLevelValue = imageUploadEffectsLevel.querySelector('.effect-level__value');
+var imageEffectLine = imageUploadEffectsLevel.querySelector('.effect-level__line');
 var imageEffectPin = imageUploadEffectsLevel.querySelector('.effect-level__pin');
 var imageEffectDepth = imageUploadEffectsLevel.querySelector('.effect-level__depth');
 var effects = {
@@ -81,8 +83,8 @@ var changeSizePhotoPreview = function (button) {
 var applyPicturefilter = function (element) {
   value = element.value;
 
-  photoPreviewImage.classList = '';
-  photoPreviewImage.classList.add('effects__preview--' + value);
+  photoPreview.classList = 'img-upload__preview';
+  photoPreview.classList.add('effects__preview--' + value);
 
   if (value === 'none') {
     hideElement(imageUploadEffectsLevel);
@@ -98,13 +100,14 @@ var addEffectLevelValue = function (percent, effect) {
   imageEffectDepth.style = 'width:' + percent + '%';
   var valuePercent = (effect[2] - effect[1]) / PHOTO_EFFECT_VOLUME_DEFAULT * percent;
   var valueInput = effect[1] + valuePercent;
-  imageEffectLevelValue.textContent = valueInput;
-  photoPreview.style = 'filter: ' + effect[0] + '(' + valueInput + effect[3] + ')';
+  imageEffectLevelValue.textContent = valueInput.toFixed(2);
+  photoPreview.style = 'filter: ' + effect[0] + '(' + valueInput.toFixed(2) + effect[3] + ')';
 };
 
-var getRandomEffectValue = function () {
-  var randomPercent = Math.round(Math.random() * 100);
-  addEffectLevelValue(randomPercent, effects[value]);
+var getEffectValue = function (percent) {
+  if (percent >= 0 && percent <= MAX_PERCENT) {
+    addEffectLevelValue(percent, effects[value]);
+  }
 };
 
 uploadFile.addEventListener('change', function () {
@@ -122,4 +125,29 @@ imageUploadEffects.addEventListener('change', function (evt) {
   applyPicturefilter(evt.target);
 });
 
-imageEffectPin.addEventListener('mouseup', getRandomEffectValue);
+imageEffectPin.addEventListener('mousedown', function (evt) {
+  evt.preventDefault();
+
+  var startCoords = evt.clientX;
+
+  var onMouseMove = function (moveEvt) {
+    moveEvt.preventDefault();
+
+    var lineWidth = imageEffectLine.clientWidth;
+    var shift = startCoords - moveEvt.clientX;
+
+    startCoords = moveEvt.clientX;
+
+    getEffectValue((imageEffectPin.offsetLeft - shift) * 100 / lineWidth);
+  };
+
+  var onMouseUp = function (upEvt) {
+    upEvt.preventDefault();
+
+    document.removeEventListener('mousemove', onMouseMove);
+    document.removeEventListener('mouseup', onMouseUp);
+  };
+
+  document.addEventListener('mousemove', onMouseMove);
+  document.addEventListener('mouseup', onMouseUp);
+});
