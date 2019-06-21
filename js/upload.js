@@ -5,6 +5,7 @@ var PHOTO_SIZE_MAX = 100;
 var PHOTO_SIZE_MIN = 25;
 var PHOTO_SIZE_CHANGE_STEP = 25;
 var PHOTO_EFFECT_VOLUME_DEFAULT = 100;
+var MAX_PERCENT = 100;
 
 var uploadFile = document.querySelector('#upload-file');
 var photoEditForm = document.querySelector('.img-upload__overlay');
@@ -99,12 +100,12 @@ var addEffectLevelValue = function (percent, effect) {
   imageEffectDepth.style = 'width:' + percent + '%';
   var valuePercent = (effect[2] - effect[1]) / PHOTO_EFFECT_VOLUME_DEFAULT * percent;
   var valueInput = effect[1] + valuePercent;
-  imageEffectLevelValue.textContent = valueInput;
-  photoPreview.style = 'filter: ' + effect[0] + '(' + valueInput + effect[3] + ')';
+  imageEffectLevelValue.textContent = valueInput.toFixed(2);
+  photoPreview.style = 'filter: ' + effect[0] + '(' + valueInput.toFixed(2) + effect[3] + ')';
 };
 
 var getEffectValue = function (percent) {
-  if (percent >= 0 && percent <= 100) {
+  if (percent >= 0 && percent <= MAX_PERCENT) {
     addEffectLevelValue(percent, effects[value]);
   }
 };
