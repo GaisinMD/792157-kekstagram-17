@@ -2,7 +2,7 @@
 // Выполняемые задачи: Работа с формой
 // Зависимости: form-const-variables.js
 
-window.form = (function () {
+(function () {
   var PHOTO_SIZE_MIN = 25;
   var PHOTO_SIZE_CHANGE_STEP = 25;
   var PHOTO_EFFECT_VOLUME_DEFAULT = 100;
