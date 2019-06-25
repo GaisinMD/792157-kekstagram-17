@@ -5,18 +5,21 @@
 window.utils = (function () {
 
   return {
+    // показать элемент DOM
     showElement: function (element) {
       if (element.classList.contains('hidden')) {
         element.classList.remove('hidden');
       }
     },
 
+    // скрыть элемент DOM
     hideElement: function (element) {
       if (!element.classList.contains('hidden')) {
         element.classList.add('hidden');
       }
     },
 
+    // слайдер
     slider: function (pin, track, callback) {
       pin.addEventListener('mousedown', function (evt) {
         evt.preventDefault();
@@ -42,6 +45,37 @@ window.utils = (function () {
         document.addEventListener('mousemove', onMouseMove);
         document.addEventListener('mouseup', onMouseUp);
       });
+    },
+
+    // сообщение об ошибке закрузки
+    onErrormessage: function (code) {
+      var popup = document.querySelector('.error-message');
+      var errorCode = popup.querySelector('.error-message-code');
+      var button = popup.querySelector('.error-message-button');
+
+      var hidePopup = function (element) {
+        if (!element.classList.contains('hidden')) {
+          element.classList.add('hidden');
+          document.removeEventListener('keydown', onEscPress);
+        }
+      };
+
+      var onEscPress = function (evt) {
+        if (evt.keyCode === window.formConstVar.ESC_KEYCODE) {
+          hidePopup(popup);
+        }
+      };
+
+      button.addEventListener('click', function () {
+        hidePopup(popup);
+      });
+
+      if (popup.classList.contains('hidden')) {
+        popup.classList.remove('hidden');
+        document.addEventListener('keydown', onEscPress);
+      }
+
+      errorCode.textContent = code;
     }
 
   };

@@ -1,5 +1,6 @@
 'use strict';
 // Выполняемые задачи: Генерация галлерии на главной странице
+// Зависимости:
 
 window.gallery = (function () {
   var generatePicture = function (template, pictureItem) {
@@ -9,8 +10,25 @@ window.gallery = (function () {
     return template;
   };
 
+  var generatePhotosList = function (responce) {
+    var photos = [];
+
+    responce.forEach(function (element) {
+      var photoObject = {};
+      photoObject.url = element.url;
+      photoObject.likes = element.likes;
+      photoObject.comments = element.comments;
+      photoObject.description = element.description;
+      photos.push(photoObject);
+    });
+
+    return photos;
+  };
+
   return {
-    generatePicturesList: function (list) {
+    generatePicturesList: function (responce) {
+      var list = generatePhotosList(responce);
+
       var pictureTemplate = document.querySelector('#picture').content.querySelector('.picture');
       var pictureList = document.querySelector('.pictures');
       var fragment = document.createDocumentFragment();

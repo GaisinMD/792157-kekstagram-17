@@ -7,7 +7,9 @@ window.formConstVar = (function () {
   var photoChangeSize = document.querySelector('.img-upload__scale');
 
   return {
+    ESC_KEYCODE: 27,
     PHOTO_SIZE_MAX: 100,
+    URL_GET: 'https://js.dump.academy/kekstagram/data',
 
     imageUploadEffects: document.querySelector('.effects__list'),
 

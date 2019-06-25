@@ -4,6 +4,6 @@
 
 (function () {
 
-  window.gallery.generatePicturesList(window.miniature.photosList);
+  window.backend.load(window.formConstVar.URL_GET, window.gallery.generatePicturesList, window.utils.onErrormessage);
 
 })();
