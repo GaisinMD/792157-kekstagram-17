@@ -3,8 +3,6 @@
 // Зависимости: form-const-variables.js
 
 (function () {
-  var ESC_KEYCODE = 27;
-
   var photoEditForm = document.querySelector('.img-upload__overlay');
   var photoEditFormClose = photoEditForm.querySelector('#upload-cancel');
 
@@ -35,7 +33,7 @@
   };
 
   var onPhotoEditFormEscPress = function (evt) {
-    if (evt.keyCode === ESC_KEYCODE && evt.target !== comment) {
+    if (evt.keyCode === window.formConstVar.ESC_KEYCODE && evt.target !== comment) {
       hidePhotoEditForm(photoEditForm);
     }
   };
