@@ -1,6 +1,7 @@
-'use strict';
 // Выполняемые задачи: загрузка данных
 // Зависимости: gallery.js
+
+'use strict';
 
 window.backend = (function () {
 
@@ -14,7 +15,8 @@ window.backend = (function () {
 
       xhr.addEventListener('load', function () {
         if (xhr.status === CODE_SUCCES) {
-          onLoad(xhr.response);
+          window.formConstVar.PHOTOS_LIST = xhr.response;
+          onLoad(window.formConstVar.PHOTOS_LIST);
         } else {
           onError(xhr.status);
         }

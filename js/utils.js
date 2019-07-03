@@ -1,10 +1,27 @@
-'use strict';
 // Выполняемые задачи: Утилиты
 // Зависимости:
+
+'use strict';
 
 window.utils = (function () {
 
   return {
+    // установка задержки
+    debounce: function (callback) {
+      var DEBOUNCE_INTERVAL = 500;
+      var lastTimeout = null;
+
+      return function () {
+        var parameters = arguments;
+        if (lastTimeout) {
+          window.clearTimeout(lastTimeout);
+        }
+        lastTimeout = window.setTimeout(function () {
+          callback.apply(null, parameters);
+        }, DEBOUNCE_INTERVAL);
+      };
+    },
+
     // показать элемент DOM
     showElement: function (element) {
       if (element.classList.contains('hidden')) {
@@ -17,6 +34,33 @@ window.utils = (function () {
       if (!element.classList.contains('hidden')) {
         element.classList.add('hidden');
       }
+    },
+
+    // очистка DOM узла
+    removeChildren: function (list) {
+      var array = list.getElementsByClassName('picture');
+      while (array[0]) {
+        list.removeChild(array[0]);
+      }
+    },
+
+    // случайное целое число
+    randomInteger: function (min, max) {
+      var rand = min + Math.random() * (max + 1 - min);
+      return Math.floor(rand);
+    },
+
+    // перемешивание массива
+    shuffleList: function (list) {
+      var y;
+      var x;
+      for (var i = list.length - 1; i > 0; i--) {
+        y = window.utils.randomInteger(0, i);
+        x = list[i];
+        list[i] = list[y];
+        list[y] = x;
+      }
+      return list;
     },
 
     // слайдер

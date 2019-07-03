@@ -1,6 +1,7 @@
-'use strict';
 // Выполняемые задачи: Открывание закрывание формы редактирования
 // Зависимости: form-const-variables.js
+
+'use strict';
 
 (function () {
   var photoEditForm = document.querySelector('.img-upload__overlay');
@@ -22,6 +23,7 @@
     window.utils.showElement(element);
     document.addEventListener('keydown', onPhotoEditFormEscPress);
     resetPhotoEditForm();
+    window.galleryFilter.hideFilters();
   };
 
   var hidePhotoEditForm = function (element) {
@@ -29,6 +31,7 @@
       element.classList.add('hidden');
       document.removeEventListener('keydown', onPhotoEditFormEscPress);
       uploadFile.value = '';
+      window.galleryFilter.showFilters();
     }
   };
 
