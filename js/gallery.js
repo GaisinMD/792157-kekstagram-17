@@ -1,6 +1,7 @@
-'use strict';
 // Выполняемые задачи: Генерация галлерии на главной странице
-// Зависимости:
+// Зависимости: utils.js
+
+'use strict';
 
 window.gallery = (function () {
   var generatePicture = function (template, pictureItem) {
@@ -12,16 +13,9 @@ window.gallery = (function () {
 
   var generatePhotosList = function (responce) {
     var photos = [];
-
     responce.forEach(function (element) {
-      var photoObject = {};
-      photoObject.url = element.url;
-      photoObject.likes = element.likes;
-      photoObject.comments = element.comments;
-      photoObject.description = element.description;
-      photos.push(photoObject);
+      photos.push(element);
     });
-
     return photos;
   };
 
@@ -33,10 +27,14 @@ window.gallery = (function () {
       var pictureList = document.querySelector('.pictures');
       var fragment = document.createDocumentFragment();
 
-      for (var i = 0; i < list.length; i++) {
-        fragment.appendChild(generatePicture(pictureTemplate.cloneNode(true), list[i]));
-      }
+      window.utils.removeChildren(pictureList);
+
+      list.forEach(function (elem) {
+        fragment.appendChild(generatePicture(pictureTemplate.cloneNode(true), elem));
+      });
+
       pictureList.appendChild(fragment);
+
     }
   };
 
