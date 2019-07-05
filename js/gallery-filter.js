@@ -4,6 +4,10 @@
 'use strict';
 
 window.galleryFilter = (function () {
+  var BEGIN_NEW_ARRAY = 0;
+  var END_NEW_ARRAY = 10;
+
+  var sortedList = window.formConstVar.PHOTOS_LIST.slice();
   var imgFilters = document.querySelector('.img-filters');
 
   var Filters = {
@@ -15,9 +19,6 @@ window.galleryFilter = (function () {
   var activeFilter = Filters.POPULAR;
 
   var applyFilter = function (filter) {
-    var BEGIN_NEW_ARRAY = 0;
-    var END_NEW_ARRAY = 10;
-    var sortedList = window.formConstVar.PHOTOS_LIST.slice();
 
     switch (filter) {
       case 'filter-new':

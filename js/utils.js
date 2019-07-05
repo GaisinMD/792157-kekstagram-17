@@ -4,11 +4,11 @@
 'use strict';
 
 window.utils = (function () {
+  var DEBOUNCE_INTERVAL = 500;
 
   return {
     // установка задержки
     debounce: function (callback) {
-      var DEBOUNCE_INTERVAL = 500;
       var lastTimeout = null;
 
       return function () {
