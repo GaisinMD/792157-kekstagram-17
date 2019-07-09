@@ -11,24 +11,15 @@ window.gallery = (function () {
     return template;
   };
 
-  var generatePhotosList = function (responce) {
-    var photos = [];
-    responce.forEach(function (element) {
-      photos.push(element);
-    });
-    return photos;
-  };
-
   return {
     generatePicturesList: function (responce) {
-      var list = generatePhotosList(responce);
 
       var pictureTemplate = document.querySelector('#picture').content.querySelector('.picture');
       var fragment = document.createDocumentFragment();
 
       window.utils.removeChildren(window.formConstVar.pictureList);
 
-      list.forEach(function (elem) {
+      responce.forEach(function (elem) {
         fragment.appendChild(generatePicture(pictureTemplate.cloneNode(true), elem));
       });
 
