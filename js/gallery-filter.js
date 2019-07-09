@@ -55,17 +55,13 @@ window.galleryFilter = (function () {
     switchFilters(evt);
   });
 
-  var showFilters = function () {
-    if (imgFilters.classList.contains('img-filters--inactive')) {
-      imgFilters.classList.remove('img-filters--inactive');
-    }
-  };
-
-  showFilters();
-
   return {
 
-    showFilters: showFilters,
+    showFilters: function () {
+      if (imgFilters.classList.contains('img-filters--inactive')) {
+        imgFilters.classList.remove('img-filters--inactive');
+      }
+    },
 
     hideFilters: function () {
       if (!imgFilters.classList.contains('img-filters--inactive')) {

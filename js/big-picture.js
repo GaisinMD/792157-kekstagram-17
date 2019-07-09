@@ -7,7 +7,6 @@ window.bigPicture = (function () {
   var BIG_PICTURE = document.querySelector('.big-picture');
   var socialCommentList = BIG_PICTURE.querySelector('.social__comments');
 
-  var hitElement;
 
   var Picture = function (url, likes, comments, description) {
     this.url = url;
@@ -33,6 +32,8 @@ window.bigPicture = (function () {
 
   var showBigPicture = function (evt) {
     var target = evt.target;
+    var hitElement;
+
     while (target !== window.formConstVar.pictureList) {
       if (target.classList.contains('picture')) {
         window.utils.showElement(BIG_PICTURE);
@@ -43,8 +44,10 @@ window.bigPicture = (function () {
       target = target.parentNode;
     }
 
-    var element = new Picture(hitElement.url, hitElement.likes, hitElement.comments, hitElement.description);
-    generateBigPicture(element);
+    if (hitElement) {
+      var element = new Picture(hitElement.url, hitElement.likes, hitElement.comments, hitElement.description);
+      generateBigPicture(element);
+    }
   };
 
   window.formConstVar.pictureList.addEventListener('click', showBigPicture);
