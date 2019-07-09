@@ -7,7 +7,6 @@ window.galleryFilter = (function () {
   var BEGIN_NEW_ARRAY = 0;
   var END_NEW_ARRAY = 10;
 
-  var sortedList = window.formConstVar.PHOTOS_LIST.slice();
   var imgFilters = document.querySelector('.img-filters');
 
   var Filters = {
@@ -19,6 +18,7 @@ window.galleryFilter = (function () {
   var activeFilter = Filters.POPULAR;
 
   var applyFilter = function (filter) {
+    var sortedList = window.formConstVar.PHOTOS_LIST.slice();
 
     switch (filter) {
       case 'filter-new':
@@ -55,13 +55,17 @@ window.galleryFilter = (function () {
     switchFilters(evt);
   });
 
+  var showFilters = function () {
+    if (imgFilters.classList.contains('img-filters--inactive')) {
+      imgFilters.classList.remove('img-filters--inactive');
+    }
+  };
+
+  showFilters();
+
   return {
 
-    showFilters: function () {
-      if (imgFilters.classList.contains('img-filters--inactive')) {
-        imgFilters.classList.remove('img-filters--inactive');
-      }
-    },
+    showFilters: showFilters,
 
     hideFilters: function () {
       if (!imgFilters.classList.contains('img-filters--inactive')) {
