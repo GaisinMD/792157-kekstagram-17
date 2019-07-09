@@ -24,16 +24,15 @@ window.gallery = (function () {
       var list = generatePhotosList(responce);
 
       var pictureTemplate = document.querySelector('#picture').content.querySelector('.picture');
-      var pictureList = document.querySelector('.pictures');
       var fragment = document.createDocumentFragment();
 
-      window.utils.removeChildren(pictureList);
+      window.utils.removeChildren(window.formConstVar.pictureList);
 
       list.forEach(function (elem) {
         fragment.appendChild(generatePicture(pictureTemplate.cloneNode(true), elem));
       });
 
-      pictureList.appendChild(fragment);
+      window.formConstVar.pictureList.appendChild(fragment);
 
     }
   };
