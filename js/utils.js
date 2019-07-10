@@ -37,10 +37,9 @@ window.utils = (function () {
     },
 
     // очистка DOM узла
-    removeChildren: function (list) {
-      var array = list.getElementsByClassName('picture');
-      while (array[0]) {
-        list.removeChild(array[0]);
+    removeChildren: function (parent, children) {
+      while (children[0]) {
+        parent.removeChild(children[0]);
       }
     },
 
