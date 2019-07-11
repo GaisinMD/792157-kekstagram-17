@@ -13,10 +13,10 @@
   };
 
   var ImageEffect = {
-    levelValue: window.formConstVar.imageUploadEffectsLevel.querySelector('.effect-level__value'),
-    line: window.formConstVar.imageUploadEffectsLevel.querySelector('.effect-level__line'),
-    pin: window.formConstVar.imageUploadEffectsLevel.querySelector('.effect-level__pin'),
-    depth: window.formConstVar.imageUploadEffectsLevel.querySelector('.effect-level__depth')
+    LEVEL_VALUE: window.formConstVar.imageUploadEffectsLevel.querySelector('.effect-level__value'),
+    LINE: window.formConstVar.imageUploadEffectsLevel.querySelector('.effect-level__line'),
+    PIN: window.formConstVar.imageUploadEffectsLevel.querySelector('.effect-level__pin'),
+    DEPTH: window.formConstVar.imageUploadEffectsLevel.querySelector('.effect-level__depth')
   };
 
   var effects = {
@@ -55,11 +55,11 @@
   };
 
   var addEffectLevelValue = function (percent, effect) {
-    ImageEffect.pin.style = 'left:' + percent + '%';
-    ImageEffect.depth.style = 'width:' + percent + '%';
+    ImageEffect.PIN.style = 'left:' + percent + '%';
+    ImageEffect.DEPTH.style = 'width:' + percent + '%';
     var valuePercent = (effect[2] - effect[1]) / Photo.EFFECT_VOLUME_DEFAULT * percent;
     var valueInput = effect[1] + valuePercent;
-    ImageEffect.levelValue.textContent = valueInput.toFixed(2);
+    ImageEffect.LEVEL_VALUE.textContent = valueInput.toFixed(2);
     window.formConstVar.photoPreview.style = 'filter: ' + effect[0] + '(' + valueInput.toFixed(2) + effect[3] + ')';
   };
 
@@ -75,6 +75,6 @@
     applyPicturefilter(evt.target);
   });
 
-  window.utils.slider(ImageEffect.pin, ImageEffect.line, getEffectValue);
+  window.utils.slider(ImageEffect.PIN, ImageEffect.LINE, getEffectValue);
 
 })();
