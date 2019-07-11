@@ -11,29 +11,19 @@ window.gallery = (function () {
     return template;
   };
 
-  var generatePhotosList = function (responce) {
-    var photos = [];
-    responce.forEach(function (element) {
-      photos.push(element);
-    });
-    return photos;
-  };
-
   return {
     generatePicturesList: function (responce) {
-      var list = generatePhotosList(responce);
 
       var pictureTemplate = document.querySelector('#picture').content.querySelector('.picture');
-      var pictureList = document.querySelector('.pictures');
       var fragment = document.createDocumentFragment();
 
-      window.utils.removeChildren(pictureList);
+      window.utils.removeChildren(window.formConstVar.pictureList, window.formConstVar.pictureList.getElementsByClassName('picture'));
 
-      list.forEach(function (elem) {
+      responce.forEach(function (elem) {
         fragment.appendChild(generatePicture(pictureTemplate.cloneNode(true), elem));
       });
 
-      pictureList.appendChild(fragment);
+      window.formConstVar.pictureList.appendChild(fragment);
 
     }
   };

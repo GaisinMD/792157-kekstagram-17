@@ -13,6 +13,8 @@ window.formConstVar = (function () {
     URL_GET: 'https://js.dump.academy/kekstagram/data',
     PHOTOS_LIST: [],
 
+    pictureList: document.querySelector('.pictures'),
+
     imageUploadEffects: document.querySelector('.effects__list'),
 
     photoPreview: photoPreview,
