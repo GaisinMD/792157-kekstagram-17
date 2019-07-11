@@ -1,5 +1,5 @@
 // Выполняемые задачи: Работа с формой
-// Зависимости: constants.js
+// Зависимости: constants.js, utils.js
 
 'use strict';
 

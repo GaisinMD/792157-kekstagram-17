@@ -1,5 +1,5 @@
 // Выполняемые задачи: Открывание закрывание формы редактирования
-// Зависимости: form-const-variables.js
+// Зависимости: constants.js, utils.js, gallery-filter.js
 
 'use strict';
 
