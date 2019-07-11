@@ -1,5 +1,5 @@
 // Выполняемые задачи: запуск логики
-// Зависимости: gallery.js, constants.js
+// Зависимости: constants.js, backend.js, utils.js, gallery.js, gallery-filter.js
 
 'use strict';
 

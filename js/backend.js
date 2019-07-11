@@ -1,5 +1,5 @@
 // Выполняемые задачи: загрузка данных
-// Зависимости: gallery.js
+// Зависимости: constants.js gallery.js
 
 'use strict';
 
