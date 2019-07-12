@@ -11,6 +11,7 @@ window.formConstVar = (function () {
     ESC_KEYCODE: 27,
     PHOTO_SIZE_MAX: 100,
     URL_GET: 'https://js.dump.academy/kekstagram/data',
+    URL_SEND: 'https://js.dump.academy/kekstagram',
     PHOTOS_LIST: [],
 
     pictureList: document.querySelector('.pictures'),
