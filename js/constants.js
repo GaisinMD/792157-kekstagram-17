@@ -14,10 +14,13 @@ window.formConstVar = (function () {
     URL_SEND: 'https://js.dump.academy/kekstagram',
     PHOTOS_LIST: [],
 
+    mainTag: document.getElementsByTagName('main')[0],
+
     pictureList: document.querySelector('.pictures'),
 
     imageUploadEffects: document.querySelector('.effects__list'),
 
+    photoPreviewOverlay: document.querySelector('.img-upload__overlay'),
     photoPreview: photoPreview,
     photoPreviewImage: photoPreview.getElementsByTagName('img')[0],
 

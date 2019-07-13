@@ -23,7 +23,9 @@
   };
 
   var generateComment = function (template, commentItem) {
-    template.querySelector('.social__picture').src = commentItem.avatar;
+    var avatar = template.querySelector('.social__picture');
+    avatar.src = commentItem.avatar;
+    avatar.alt = commentItem.name;
     template.querySelector('.social__text').textContent = commentItem.message;
     return template;
   };
