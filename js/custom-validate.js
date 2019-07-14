@@ -29,19 +29,13 @@ window.customValidation = (function () {
       if (hashtags.length) {
         var array = hashtags.toLowerCase().split(SEPARATOR);
 
-        console.log(window.validateObject.Validation);
-
         inputCustomValidation = new window.validateObject.Validation(array);
-        //
-        // inputCustomValidation.checkValidity(array);
-        //
         inputCustomValidation.getReapitingHashtags();
         inputCustomValidation.getLonelyHashtag(HASHTAG_BEGINNER);
         inputCustomValidation.getSpaceHashtag(HASHTAG_BEGINNER);
         inputCustomValidation.getMiddleHashtag(HASHTAG_BEGINNER);
         inputCustomValidation.getTooLongHashtag(HASHTAG_LENGTH);
         inputCustomValidation.getTooManyHashtag(MAX_HASHTAGS_QUANTITY);
-        //
         customValidityMessage = inputCustomValidation.getInvalidities();
 
         if (inputCustomValidation.invalidities.length) {
