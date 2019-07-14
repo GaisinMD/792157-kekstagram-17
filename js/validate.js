@@ -3,7 +3,7 @@
 
 'use strict';
 
-window.validateObject = (function () {
+window.Validation = (function () {
   var Validation = function (input) {
     this.input = input;
     this.invalidities = [];
@@ -72,10 +72,6 @@ window.validateObject = (function () {
 
   };
 
-  return {
-
-    Validation: Validation
-
-  };
+  return Validation;
 
 })();

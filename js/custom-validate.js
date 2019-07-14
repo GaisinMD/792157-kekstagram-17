@@ -29,7 +29,7 @@ window.customValidation = (function () {
       if (hashtags.length) {
         var array = hashtags.toLowerCase().split(SEPARATOR);
 
-        inputCustomValidation = new window.validateObject.Validation(array);
+        inputCustomValidation = new window.Validation(array);
         inputCustomValidation.getReapitingHashtags();
         inputCustomValidation.getLonelyHashtag(HASHTAG_BEGINNER);
         inputCustomValidation.getSpaceHashtag(HASHTAG_BEGINNER);
