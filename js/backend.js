@@ -12,13 +12,13 @@ window.backend = (function () {
     load: function (url, onLoad, onError) {
       var xhr = new XMLHttpRequest();
       xhr.responseType = 'json';
-      window.formConstVar.mainTag.appendChild(popup);
+      window.constants.mainTag.appendChild(popup);
 
       xhr.addEventListener('load', function () {
-        window.formConstVar.mainTag.removeChild(popup);
+        window.constants.mainTag.removeChild(popup);
         if (xhr.status === CODE_SUCCES) {
-          window.formConstVar.PHOTOS_LIST = xhr.response;
-          onLoad(window.formConstVar.PHOTOS_LIST);
+          window.constants.PHOTOS_LIST = xhr.response;
+          onLoad(window.constants.PHOTOS_LIST);
         } else {
           onError(xhr.status);
         }
@@ -31,10 +31,10 @@ window.backend = (function () {
     save: function (url, data, onLoad, onError) {
       var xhr = new XMLHttpRequest();
       xhr.responseType = 'json';
-      window.formConstVar.mainTag.appendChild(popup);
+      window.constants.mainTag.appendChild(popup);
 
       xhr.addEventListener('load', function () {
-        window.formConstVar.mainTag.removeChild(popup);
+        window.constants.mainTag.removeChild(popup);
         if (xhr.status === CODE_SUCCES) {
           onLoad(xhr.response);
         } else {

@@ -3,7 +3,7 @@
 
 'use strict';
 
-window.formConstVar = (function () {
+window.constants = (function () {
   var photoPreview = document.querySelector('.img-upload__preview');
   var photoChangeSize = document.querySelector('.img-upload__scale');
 

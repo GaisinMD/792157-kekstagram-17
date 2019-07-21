@@ -59,7 +59,7 @@
   };
 
   var onBigPictureEscPress = function (evt) {
-    if (evt.keyCode === window.formConstVar.ESC_KEYCODE && evt.target !== Picture.COMMENTS_INPUT) {
+    if (evt.keyCode === window.constants.ESC_KEYCODE && evt.target !== Picture.COMMENTS_INPUT) {
       hideBigPicture(BIG_PICTURE);
     }
   };
@@ -68,11 +68,11 @@
     var target = evt.target;
     var hitElement;
 
-    while (target !== window.formConstVar.pictureList) {
+    while (target !== window.constants.pictureList) {
       if (target.classList.contains('picture')) {
         window.utils.showElement(BIG_PICTURE);
         document.addEventListener('keydown', onBigPictureEscPress);
-        hitElement = window.formConstVar.PHOTOS_LIST.slice().filter(function (i) {
+        hitElement = window.constants.PHOTOS_LIST.slice().filter(function (i) {
           return (target.querySelector('.picture__img').src.search(i.url) >= 0);
         })[0];
       }
@@ -85,7 +85,7 @@
     }
   };
 
-  window.formConstVar.pictureList.addEventListener('click', showBigPicture);
+  window.constants.pictureList.addEventListener('click', showBigPicture);
 
   Picture.CLOSE_BUTTON.addEventListener('click', function (evt) {
     evt.preventDefault();

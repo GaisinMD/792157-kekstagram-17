@@ -104,7 +104,7 @@ window.utils = (function () {
       };
 
       var onEscPress = function (evt) {
-        if (evt.keyCode === window.formConstVar.ESC_KEYCODE) {
+        if (evt.keyCode === window.constants.ESC_KEYCODE) {
           hidePopup(popup);
         }
       };
@@ -128,12 +128,12 @@ window.utils = (function () {
       var header = popup.querySelector('.success__title');
 
       var hidePopup = function (element) {
-        window.formConstVar.mainTag.removeChild(element);
+        window.constants.mainTag.removeChild(element);
         document.removeEventListener('keydown', onEscPress);
       };
 
       var onEscPress = function (evt) {
-        if (evt.keyCode === window.formConstVar.ESC_KEYCODE) {
+        if (evt.keyCode === window.constants.ESC_KEYCODE) {
           hidePopup(popup);
         }
       };
@@ -143,7 +143,7 @@ window.utils = (function () {
       });
 
       header.textContent = header.textContent + ': ' + code.filename.filename;
-      window.formConstVar.mainTag.appendChild(popup);
+      window.constants.mainTag.appendChild(popup);
     }
 
   };

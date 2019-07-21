@@ -17,12 +17,12 @@
   var uploadFile = document.querySelector('#upload-file');
 
   var resetPhotoEditForm = function () {
-    window.formConstVar.photosize = window.formConstVar.PHOTO_SIZE_MAX;
-    window.formConstVar.photoPreview.classList = 'img-upload__preview';
-    window.formConstVar.photoPreview.style = '';
-    window.utils.hideElement(window.formConstVar.imageUploadEffectsLevel);
-    window.formConstVar.photoSizeValue.value = '100%';
-    window.formConstVar.photoPreviewImage.style = 'transform: scale(1)';
+    window.constants.photosize = window.constants.PHOTO_SIZE_MAX;
+    window.constants.photoPreview.classList = 'img-upload__preview';
+    window.constants.photoPreview.style = '';
+    window.utils.hideElement(window.constants.imageUploadEffectsLevel);
+    window.constants.photoSizeValue.value = '100%';
+    window.constants.photoPreviewImage.style = 'transform: scale(1)';
   };
 
   var showPhotoEditForm = function (element) {
@@ -44,8 +44,8 @@
   };
 
   var onPhotoEditFormEscPress = function (evt) {
-    if (evt.keyCode === window.formConstVar.ESC_KEYCODE && evt.target !== PhotoEdit.COMMENT && evt.target !== window.customValidation.HASHTAGS) {
-      hidePhotoEditForm(window.formConstVar.photoPreviewOverlay);
+    if (evt.keyCode === window.constants.ESC_KEYCODE && evt.target !== PhotoEdit.COMMENT && evt.target !== window.customValidation.HASHTAGS) {
+      hidePhotoEditForm(window.constants.photoPreviewOverlay);
     }
   };
 
@@ -62,14 +62,14 @@
       var reader = new FileReader();
 
       reader.addEventListener('load', function () {
-        var filtersPreview = window.formConstVar.imageUploadEffects.getElementsByTagName('span');
-        window.formConstVar.photoPreview.getElementsByTagName('img')[0].src = reader.result;
+        var filtersPreview = window.constants.imageUploadEffects.getElementsByTagName('span');
+        window.constants.photoPreview.getElementsByTagName('img')[0].src = reader.result;
         for (var i = 0; i < filtersPreview.length; i++) {
           filtersPreview[i].style = 'background-image: url("' + reader.result + '")';
         }
       });
 
-      showPhotoEditForm(window.formConstVar.photoPreviewOverlay);
+      showPhotoEditForm(window.constants.photoPreviewOverlay);
       reader.readAsDataURL(file);
     } else {
       window.utils.onErrorMessage(ERROR_FILE_TYPE_MESSAGE);
@@ -83,7 +83,7 @@
 
   PhotoEdit.CLOSE.addEventListener('click', function (evt) {
     evt.preventDefault();
-    hidePhotoEditForm(window.formConstVar.photoPreviewOverlay);
+    hidePhotoEditForm(window.constants.photoPreviewOverlay);
   });
 
   PhotoEdit.SUBMIT.addEventListener('click', function (evt) {
@@ -92,8 +92,8 @@
 
     if (getValidation) {
       window.customValidation.HASHTAGS.setCustomValidity('');
-      window.backend.save(window.formConstVar.URL_SEND, new FormData(PHOTO_EDIT_FORM), window.utils.onSuccessMessage, window.utils.onErrorMessage);
-      hidePhotoEditForm(window.formConstVar.photoPreviewOverlay);
+      window.backend.save(window.constants.URL_SEND, new FormData(PHOTO_EDIT_FORM), window.utils.onSuccessMessage, window.utils.onErrorMessage);
+      hidePhotoEditForm(window.constants.photoPreviewOverlay);
     }
   });
 
