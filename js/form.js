@@ -13,10 +13,10 @@
   };
 
   var ImageEffect = {
-    LEVEL_VALUE: window.formConstVar.imageUploadEffectsLevel.querySelector('.effect-level__value'),
-    LINE: window.formConstVar.imageUploadEffectsLevel.querySelector('.effect-level__line'),
-    PIN: window.formConstVar.imageUploadEffectsLevel.querySelector('.effect-level__pin'),
-    DEPTH: window.formConstVar.imageUploadEffectsLevel.querySelector('.effect-level__depth')
+    LEVEL_VALUE: window.constants.imageUploadEffectsLevel.querySelector('.effect-level__value'),
+    LINE: window.constants.imageUploadEffectsLevel.querySelector('.effect-level__line'),
+    PIN: window.constants.imageUploadEffectsLevel.querySelector('.effect-level__pin'),
+    DEPTH: window.constants.imageUploadEffectsLevel.querySelector('.effect-level__depth')
   };
 
   var effects = {
@@ -30,26 +30,26 @@
   var value = '';
 
   var changeSizePhotoPreview = function (button) {
-    if (button.target.classList.contains('scale__control--bigger') && window.formConstVar.photosize < window.formConstVar.PHOTO_SIZE_MAX) {
-      window.formConstVar.photosize += Photo.SIZE_CHANGE_STEP;
-    } else if ((button.target.classList.contains('scale__control--smaller') && window.formConstVar.photosize > Photo.SIZE_MIN)) {
-      window.formConstVar.photosize -= Photo.SIZE_CHANGE_STEP;
+    if (button.target.classList.contains('scale__control--bigger') && window.constants.photosize < window.constants.PHOTO_SIZE_MAX) {
+      window.constants.photosize += Photo.SIZE_CHANGE_STEP;
+    } else if ((button.target.classList.contains('scale__control--smaller') && window.constants.photosize > Photo.SIZE_MIN)) {
+      window.constants.photosize -= Photo.SIZE_CHANGE_STEP;
     }
-    window.formConstVar.photoSizeValue.value = '' + window.formConstVar.photosize + '%';
-    window.formConstVar.photoPreviewImage.style = 'transform: scale(' + (window.formConstVar.photosize / 100) + ')';
+    window.constants.photoSizeValue.value = '' + window.constants.photosize + '%';
+    window.constants.photoPreviewImage.style = 'transform: scale(' + (window.constants.photosize / 100) + ')';
   };
 
   var applyPicturefilter = function (element) {
     value = element.value;
 
-    window.formConstVar.photoPreview.classList = 'img-upload__preview';
-    window.formConstVar.photoPreview.classList.add('effects__preview--' + value);
+    window.constants.photoPreview.classList = 'img-upload__preview';
+    window.constants.photoPreview.classList.add('effects__preview--' + value);
 
     if (value === 'none') {
-      window.utils.hideElement(window.formConstVar.imageUploadEffectsLevel);
-      window.formConstVar.photoPreview.style = '';
+      window.utils.hideElement(window.constants.imageUploadEffectsLevel);
+      window.constants.photoPreview.style = '';
     } else {
-      window.utils.showElement(window.formConstVar.imageUploadEffectsLevel);
+      window.utils.showElement(window.constants.imageUploadEffectsLevel);
       addEffectLevelValue(Photo.EFFECT_VOLUME_DEFAULT, effects[value]);
     }
   };
@@ -60,7 +60,7 @@
     var valuePercent = (effect[2] - effect[1]) / Photo.EFFECT_VOLUME_DEFAULT * percent;
     var valueInput = effect[1] + valuePercent;
     ImageEffect.LEVEL_VALUE.textContent = valueInput.toFixed(2);
-    window.formConstVar.photoPreview.style = 'filter: ' + effect[0] + '(' + valueInput.toFixed(2) + effect[3] + ')';
+    window.constants.photoPreview.style = 'filter: ' + effect[0] + '(' + valueInput.toFixed(2) + effect[3] + ')';
   };
 
   var getEffectValue = function (percent) {
@@ -69,9 +69,9 @@
     }
   };
 
-  window.formConstVar.photoChangeSize.addEventListener('click', changeSizePhotoPreview);
+  window.constants.photoChangeSize.addEventListener('click', changeSizePhotoPreview);
 
-  window.formConstVar.imageUploadEffects.addEventListener('change', function (evt) {
+  window.constants.imageUploadEffects.addEventListener('change', function (evt) {
     applyPicturefilter(evt.target);
   });
 

@@ -18,7 +18,7 @@ window.galleryFilter = (function () {
   var activeFilter = Filters.POPULAR;
 
   var applyFilter = function (filter) {
-    var sortedList = window.formConstVar.PHOTOS_LIST.slice();
+    var sortedList = window.constants.PHOTOS_LIST.slice();
 
     switch (filter) {
       case 'filter-new':

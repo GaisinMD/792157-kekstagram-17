@@ -91,7 +91,7 @@ window.utils = (function () {
     },
 
     // сообщение об ошибке закрузки
-    onErrormessage: function (code) {
+    onErrorMessage: function (code) {
       var popup = document.querySelector('.error-message');
       var errorCode = popup.querySelector('.error-message-code');
       var button = popup.querySelector('.error-message-button');
@@ -104,7 +104,7 @@ window.utils = (function () {
       };
 
       var onEscPress = function (evt) {
-        if (evt.keyCode === window.formConstVar.ESC_KEYCODE) {
+        if (evt.keyCode === window.constants.ESC_KEYCODE) {
           hidePopup(popup);
         }
       };
@@ -119,6 +119,31 @@ window.utils = (function () {
       }
 
       errorCode.textContent = code;
+    },
+
+    // сообщение об успехе закрузки
+    onSuccessMessage: function (code) {
+      var popup = document.querySelector('#success').content.querySelector('.success').cloneNode(true);
+      var button = popup.querySelector('.success__button');
+      var header = popup.querySelector('.success__title');
+
+      var hidePopup = function (element) {
+        window.constants.mainTag.removeChild(element);
+        document.removeEventListener('keydown', onEscPress);
+      };
+
+      var onEscPress = function (evt) {
+        if (evt.keyCode === window.constants.ESC_KEYCODE) {
+          hidePopup(popup);
+        }
+      };
+
+      button.addEventListener('click', function () {
+        hidePopup(popup);
+      });
+
+      header.textContent = header.textContent + ': ' + code.filename.filename;
+      window.constants.mainTag.appendChild(popup);
     }
 
   };

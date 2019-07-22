@@ -4,19 +4,23 @@
 'use strict';
 
 (function () {
-  var photoEditForm = document.querySelector('.img-upload__overlay');
-  var photoEditFormClose = photoEditForm.querySelector('#upload-cancel');
+  var FILE_TYPES = ['gif', 'jpg', 'jpeg', 'png'];
+  var ERROR_FILE_TYPE_MESSAGE = 'Неверный тип файла';
 
-  var comment = document.querySelector('.text__description');
-  var uploadFile = document.querySelector('#upload-file');
+  var PHOTO_EDIT_FORM = document.querySelector('.img-upload__form');
+  var PHOTO_EDIT_FORM_CLOSE = PHOTO_EDIT_FORM.querySelector('#upload-cancel');
+  var PHOTO_EDIT_FORM_SUBMIT = PHOTO_EDIT_FORM.querySelector('#upload-submit');
+  var PHOTO_EDIT_FORM_COMMENT = PHOTO_EDIT_FORM.querySelector('.text__description');
+
+  var UPLOAD_FILE = document.querySelector('#upload-file');
 
   var resetPhotoEditForm = function () {
-    window.formConstVar.photosize = window.formConstVar.PHOTO_SIZE_MAX;
-    window.formConstVar.photoPreview.classList = 'img-upload__preview';
-    window.formConstVar.photoPreview.style = '';
-    window.utils.hideElement(window.formConstVar.imageUploadEffectsLevel);
-    window.formConstVar.photoSizeValue.value = '100%';
-    window.formConstVar.photoPreviewImage.style = 'transform: scale(1)';
+    window.constants.photosize = window.constants.PHOTO_SIZE_MAX;
+    window.constants.photoPreview.classList = 'img-upload__preview';
+    window.constants.photoPreview.style = '';
+    window.utils.hideElement(window.constants.imageUploadEffectsLevel);
+    window.constants.photoSizeValue.value = '100%';
+    window.constants.photoPreviewImage.style = 'transform: scale(1)';
   };
 
   var showPhotoEditForm = function (element) {
@@ -30,24 +34,65 @@
     if (!element.classList.contains('hidden')) {
       element.classList.add('hidden');
       document.removeEventListener('keydown', onPhotoEditFormEscPress);
-      uploadFile.value = '';
+      UPLOAD_FILE.value = '';
+      PHOTO_EDIT_FORM_COMMENT.value = '';
+      window.customValidation.HASHTAGS.value = '';
       window.galleryFilter.showFilters();
     }
   };
 
   var onPhotoEditFormEscPress = function (evt) {
-    if (evt.keyCode === window.formConstVar.ESC_KEYCODE && evt.target !== comment) {
-      hidePhotoEditForm(photoEditForm);
+    if (evt.keyCode === window.constants.ESC_KEYCODE && evt.target !== PHOTO_EDIT_FORM_COMMENT && evt.target !== window.customValidation.HASHTAGS) {
+      hidePhotoEditForm(window.constants.photoPreviewOverlay);
     }
   };
 
-  uploadFile.addEventListener('change', function () {
-    showPhotoEditForm(photoEditForm);
+
+  var validateLoad = function () {
+    var file = UPLOAD_FILE.files[0];
+    var fileName = file.name.toLowerCase();
+
+    var matches = FILE_TYPES.some(function (it) {
+      return fileName.endsWith(it);
+    });
+
+    if (matches) {
+      var reader = new FileReader();
+
+      reader.addEventListener('load', function () {
+        var filtersPreview = window.constants.imageUploadEffects.getElementsByTagName('span');
+        window.constants.photoPreview.getElementsByTagName('img')[0].src = reader.result;
+        for (var i = 0; i < filtersPreview.length; i++) {
+          filtersPreview[i].style = 'background-image: url("' + reader.result + '")';
+        }
+      });
+
+      showPhotoEditForm(window.constants.photoPreviewOverlay);
+      reader.readAsDataURL(file);
+    } else {
+      window.utils.onErrorMessage(ERROR_FILE_TYPE_MESSAGE);
+    }
+
+  };
+
+  UPLOAD_FILE.addEventListener('change', function () {
+    validateLoad();
   });
 
-  photoEditFormClose.addEventListener('click', function (evt) {
+  PHOTO_EDIT_FORM_CLOSE.addEventListener('click', function (evt) {
     evt.preventDefault();
-    hidePhotoEditForm(photoEditForm);
+    hidePhotoEditForm(window.constants.photoPreviewOverlay);
+  });
+
+  PHOTO_EDIT_FORM_SUBMIT.addEventListener('click', function (evt) {
+    evt.preventDefault();
+    var getValidation = window.customValidation.validateHashtags(window.customValidation.HASHTAGS);
+
+    if (getValidation) {
+      window.customValidation.HASHTAGS.setCustomValidity('');
+      window.backend.save(window.constants.URL_SEND, new FormData(PHOTO_EDIT_FORM), window.utils.onSuccessMessage, window.utils.onErrorMessage);
+      hidePhotoEditForm(window.constants.photoPreviewOverlay);
+    }
   });
 
 })();
