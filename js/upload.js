@@ -8,13 +8,11 @@
   var ERROR_FILE_TYPE_MESSAGE = 'Неверный тип файла';
 
   var PHOTO_EDIT_FORM = document.querySelector('.img-upload__form');
-  var PhotoEdit = {
-    CLOSE: PHOTO_EDIT_FORM.querySelector('#upload-cancel'),
-    SUBMIT: PHOTO_EDIT_FORM.querySelector('#upload-submit'),
-    COMMENT: PHOTO_EDIT_FORM.querySelector('.text__description'),
-  };
+  var PHOTO_EDIT_FORM_CLOSE = PHOTO_EDIT_FORM.querySelector('#upload-cancel');
+  var PHOTO_EDIT_FORM_SUBMIT = PHOTO_EDIT_FORM.querySelector('#upload-submit');
+  var PHOTO_EDIT_FORM_COMMENT = PHOTO_EDIT_FORM.querySelector('.text__description');
 
-  var uploadFile = document.querySelector('#upload-file');
+  var UPLOAD_FILE = document.querySelector('#upload-file');
 
   var resetPhotoEditForm = function () {
     window.constants.photosize = window.constants.PHOTO_SIZE_MAX;
@@ -36,22 +34,22 @@
     if (!element.classList.contains('hidden')) {
       element.classList.add('hidden');
       document.removeEventListener('keydown', onPhotoEditFormEscPress);
-      uploadFile.value = '';
-      PhotoEdit.COMMENT.value = '';
+      UPLOAD_FILE.value = '';
+      PHOTO_EDIT_FORM_COMMENT.value = '';
       window.customValidation.HASHTAGS.value = '';
       window.galleryFilter.showFilters();
     }
   };
 
   var onPhotoEditFormEscPress = function (evt) {
-    if (evt.keyCode === window.constants.ESC_KEYCODE && evt.target !== PhotoEdit.COMMENT && evt.target !== window.customValidation.HASHTAGS) {
+    if (evt.keyCode === window.constants.ESC_KEYCODE && evt.target !== PHOTO_EDIT_FORM_COMMENT && evt.target !== window.customValidation.HASHTAGS) {
       hidePhotoEditForm(window.constants.photoPreviewOverlay);
     }
   };
 
 
   var validateLoad = function () {
-    var file = uploadFile.files[0];
+    var file = UPLOAD_FILE.files[0];
     var fileName = file.name.toLowerCase();
 
     var matches = FILE_TYPES.some(function (it) {
@@ -77,16 +75,16 @@
 
   };
 
-  uploadFile.addEventListener('change', function () {
+  UPLOAD_FILE.addEventListener('change', function () {
     validateLoad();
   });
 
-  PhotoEdit.CLOSE.addEventListener('click', function (evt) {
+  PHOTO_EDIT_FORM_CLOSE.addEventListener('click', function (evt) {
     evt.preventDefault();
     hidePhotoEditForm(window.constants.photoPreviewOverlay);
   });
 
-  PhotoEdit.SUBMIT.addEventListener('click', function (evt) {
+  PHOTO_EDIT_FORM_SUBMIT.addEventListener('click', function (evt) {
     evt.preventDefault();
     var getValidation = window.customValidation.validateHashtags(window.customValidation.HASHTAGS);
 
