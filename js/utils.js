@@ -109,7 +109,8 @@ window.utils = (function () {
         }
       };
 
-      button.addEventListener('click', function () {
+      button.addEventListener('click', function (evt) {
+        evt.preventDefault();
         hidePopup(popup);
       });
 
@@ -124,8 +125,9 @@ window.utils = (function () {
     // сообщение об успехе закрузки
     onSuccessMessage: function (code) {
       var popup = document.querySelector('#success').content.querySelector('.success').cloneNode(true);
-      var button = popup.querySelector('.success__button');
-      var header = popup.querySelector('.success__title');
+      var inner = popup.querySelector('.success__inner');
+      var button = inner.querySelector('.success__button');
+      var header = inner.querySelector('.success__title');
 
       var hidePopup = function (element) {
         window.constants.mainTag.removeChild(element);
@@ -138,12 +140,22 @@ window.utils = (function () {
         }
       };
 
-      button.addEventListener('click', function () {
+      button.addEventListener('click', function (evt) {
+        evt.preventDefault();
         hidePopup(popup);
+      });
+
+      document.addEventListener('keydown', onEscPress);
+
+      popup.addEventListener('click', function (evt) {
+        if (evt.target === popup) {
+          hidePopup(popup);
+        }
       });
 
       header.textContent = header.textContent + ': ' + code.filename.filename;
       window.constants.mainTag.appendChild(popup);
+
     }
 
   };

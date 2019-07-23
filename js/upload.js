@@ -50,27 +50,29 @@
 
   var validateLoad = function () {
     var file = UPLOAD_FILE.files[0];
-    var fileName = file.name.toLowerCase();
+    if (file) {
+      var fileName = file.name.toLowerCase();
 
-    var matches = FILE_TYPES.some(function (it) {
-      return fileName.endsWith(it);
-    });
-
-    if (matches) {
-      var reader = new FileReader();
-
-      reader.addEventListener('load', function () {
-        var filtersPreview = window.constants.imageUploadEffects.getElementsByTagName('span');
-        window.constants.photoPreview.getElementsByTagName('img')[0].src = reader.result;
-        for (var i = 0; i < filtersPreview.length; i++) {
-          filtersPreview[i].style = 'background-image: url("' + reader.result + '")';
-        }
+      var matches = FILE_TYPES.some(function (it) {
+        return fileName.endsWith(it);
       });
 
-      showPhotoEditForm(window.constants.photoPreviewOverlay);
-      reader.readAsDataURL(file);
-    } else {
-      window.utils.onErrorMessage(ERROR_FILE_TYPE_MESSAGE);
+      if (matches) {
+        var reader = new FileReader();
+
+        reader.addEventListener('load', function () {
+          var filtersPreview = window.constants.imageUploadEffects.getElementsByTagName('span');
+          window.constants.photoPreview.getElementsByTagName('img')[0].src = reader.result;
+          for (var i = 0; i < filtersPreview.length; i++) {
+            filtersPreview[i].style = 'background-image: url("' + reader.result + '")';
+          }
+        });
+
+        showPhotoEditForm(window.constants.photoPreviewOverlay);
+        reader.readAsDataURL(file);
+      } else {
+        window.utils.onErrorMessage(ERROR_FILE_TYPE_MESSAGE);
+      }
     }
 
   };
