@@ -49,6 +49,8 @@
 
 
   var validateLoad = function () {
+    UPLOAD_FILE.blur();
+
     var file = UPLOAD_FILE.files[0];
     if (file) {
       var fileName = file.name.toLowerCase();
