@@ -44,6 +44,8 @@
         if (stepComments >= list.length) {
           stepComments = list.length;
           window.utils.hideElement(Picture.COMMENTS_LOADER);
+          Picture.COMMENTS_LOADER.removeEventListener('click', increaseComments);
+          debugger;
         }
         Picture.COMMENTS_COUNT.textContent = stepComments + ' из ';
         Picture.COMMENTS_COUNT.appendChild(Picture.COMMENTS_QUANTITY);
