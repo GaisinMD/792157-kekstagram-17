@@ -8,7 +8,7 @@ window.utils = (function () {
 
   return {
     // установка задержки
-    debounce: function (callback) {
+    setDebounce: function (callback) {
       var lastTimeout = null;
 
       return function () {
@@ -44,7 +44,7 @@ window.utils = (function () {
     },
 
     // случайное целое число
-    randomInteger: function (min, max) {
+    getRandomInteger: function (min, max) {
       var rand = min + Math.random() * (max + 1 - min);
       return Math.floor(rand);
     },
@@ -54,7 +54,7 @@ window.utils = (function () {
       var y;
       var x;
       for (var i = list.length - 1; i > 0; i--) {
-        y = window.utils.randomInteger(0, i);
+        y = window.utils.getRandomInteger(0, i);
         x = list[i];
         list[i] = list[y];
         list[y] = x;
@@ -63,7 +63,7 @@ window.utils = (function () {
     },
 
     // слайдер
-    slider: function (pin, track, callback) {
+    setSlider: function (pin, track, callback) {
       pin.addEventListener('mousedown', function (evt) {
         evt.preventDefault();
         var startCoords = evt.clientX;

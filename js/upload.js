@@ -96,7 +96,10 @@
       window.customValidation.HASHTAGS.setCustomValidity('');
       window.backend.save(window.constants.URL_SEND, new FormData(PHOTO_EDIT_FORM), window.utils.onSuccessMessage, window.utils.onErrorMessage);
       hidePhotoEditForm(window.constants.photoPreviewOverlay);
+    } else {
+      window.customValidation.HASHTAGS.style = 'border-color: red; background-color: pink';
     }
+
   });
 
 })();

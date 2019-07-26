@@ -10,9 +10,9 @@ window.galleryFilter = (function () {
   var imgFilters = document.querySelector('.img-filters');
 
   var Filters = {
-    POPULAR: document.getElementById('filter-popular'),
-    NEW: document.getElementById('filter-new'),
-    DISCUSSED: document.getElementById('filter-discussed')
+    POPULAR: document.querySelector('#filter-popular'),
+    NEW: document.querySelector('#filter-new'),
+    DISCUSSED: document.querySelector('#filter-discussed')
   };
 
   var activeFilter = Filters.POPULAR;
@@ -35,7 +35,7 @@ window.galleryFilter = (function () {
     window.gallery.generatePicturesList(sortedList);
   };
 
-  var delayingSwitchFilters = window.utils.debounce(function (id) {
+  var delayingSwitchFilters = window.utils.setDebounce(function (id) {
     applyFilter(id);
   });
 
