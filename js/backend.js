@@ -17,8 +17,7 @@ window.backend = (function () {
       xhr.addEventListener('load', function () {
         window.constants.mainTag.removeChild(popup);
         if (xhr.status === CODE_SUCCES) {
-          window.constants.PHOTOS_LIST = xhr.response;
-          onLoad(window.constants.PHOTOS_LIST);
+          onLoad(xhr.response);
         } else {
           onError(xhr.status);
         }

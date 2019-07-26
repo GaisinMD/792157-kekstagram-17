@@ -5,6 +5,12 @@
 
 (function () {
   var BIG_PICTURE = document.querySelector('.big-picture');
+  var STEP = 5;
+  var BEGIN_THREAD = 0;
+
+  var commentTemplate = document.querySelector('#comment').content.querySelector('.social__comment');
+  var fragment = document.createDocumentFragment();
+
   var Picture = {
     IMG: BIG_PICTURE.querySelector('.big-picture__img').children[0],
     LIKES: BIG_PICTURE.querySelector('.likes-count'),
@@ -33,11 +39,6 @@
   };
 
   var generateCommentList = function (list) {
-    var STEP = 5;
-    var BEGIN_THREAD = 0;
-
-    var commentTemplate = document.querySelector('#comment').content.querySelector('.social__comment');
-    var fragment = document.createDocumentFragment();
 
     var hideBigPicture = function (element) {
       if (!element.classList.contains('hidden')) {
