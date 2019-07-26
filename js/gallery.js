@@ -4,6 +4,8 @@
 'use strict';
 
 window.gallery = (function () {
+  var pictureTemplate = document.querySelector('#picture').content.querySelector('.picture');
+  var fragment = document.createDocumentFragment();
 
   var generatePicture = function (template, pictureItem) {
     template.querySelector('.picture__img').src = pictureItem.url;
@@ -14,9 +16,6 @@ window.gallery = (function () {
 
   return {
     generatePicturesList: function (response) {
-
-      var pictureTemplate = document.querySelector('#picture').content.querySelector('.picture');
-      var fragment = document.createDocumentFragment();
 
       window.utils.removeChildren(window.constants.pictureList, window.constants.pictureList.getElementsByClassName('picture'));
 

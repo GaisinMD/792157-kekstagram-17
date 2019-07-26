@@ -55,10 +55,11 @@
   };
 
   var addEffectLevelValue = function (percent, effect) {
-    ImageEffect.PIN.style = 'left:' + percent + '%';
-    ImageEffect.DEPTH.style = 'width:' + percent + '%';
     var valuePercent = (effect[2] - effect[1]) / Photo.EFFECT_VOLUME_DEFAULT * percent;
     var valueInput = effect[1] + valuePercent;
+
+    ImageEffect.PIN.style = 'left:' + percent + '%';
+    ImageEffect.DEPTH.style = 'width:' + percent + '%';
     ImageEffect.LEVEL_VALUE.textContent = valueInput.toFixed(2);
     window.constants.photoPreview.style = 'filter: ' + effect[0] + '(' + valueInput.toFixed(2) + effect[3] + ')';
   };
