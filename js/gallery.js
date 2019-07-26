@@ -4,6 +4,7 @@
 'use strict';
 
 window.gallery = (function () {
+
   var generatePicture = function (template, pictureItem) {
     template.querySelector('.picture__img').src = pictureItem.url;
     template.querySelector('.picture__likes').textContent = pictureItem.likes + '';
@@ -12,14 +13,14 @@ window.gallery = (function () {
   };
 
   return {
-    generatePicturesList: function (responce) {
+    generatePicturesList: function (response) {
 
       var pictureTemplate = document.querySelector('#picture').content.querySelector('.picture');
       var fragment = document.createDocumentFragment();
 
-      window.utils.removeChildren(window.constants.pictureList, window.constants.pictureList.querySelectorAll('picture'));
+      window.utils.removeChildren(window.constants.pictureList, window.constants.pictureList.getElementsByClassName('picture'));
 
-      responce.forEach(function (elem) {
+      response.forEach(function (elem) {
         fragment.appendChild(generatePicture(pictureTemplate.cloneNode(true), elem));
       });
 
