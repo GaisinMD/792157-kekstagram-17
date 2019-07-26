@@ -75,6 +75,6 @@
     applyPicturefilter(evt.target);
   });
 
-  window.utils.slider(ImageEffect.PIN, ImageEffect.LINE, getEffectValue);
+  window.utils.setSlider(ImageEffect.PIN, ImageEffect.LINE, getEffectValue);
 
 })();

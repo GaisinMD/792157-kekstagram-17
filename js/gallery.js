@@ -17,7 +17,7 @@ window.gallery = (function () {
       var pictureTemplate = document.querySelector('#picture').content.querySelector('.picture');
       var fragment = document.createDocumentFragment();
 
-      window.utils.removeChildren(window.constants.pictureList, window.constants.pictureList.getElementsByClassName('picture'));
+      window.utils.removeChildren(window.constants.pictureList, window.constants.pictureList.querySelectorAll('picture'));
 
       responce.forEach(function (elem) {
         fragment.appendChild(generatePicture(pictureTemplate.cloneNode(true), elem));

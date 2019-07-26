@@ -12,6 +12,7 @@ window.customValidation = (function () {
 
   var removeSetCustomValidity = function (evt) {
     evt.target.setCustomValidity('');
+    window.customValidation.HASHTAGS.style = 'border-color: #9a9a9a; background-color: white';
   };
 
   return {
@@ -20,7 +21,6 @@ window.customValidation = (function () {
 
     validateHashtags: function (string) {
       var hashtags = string.value.trim();
-      var valid = true;
       var inputCustomValidation;
       var customValidityMessage;
 
@@ -42,13 +42,11 @@ window.customValidation = (function () {
           window.customValidation.HASHTAGS.setCustomValidity(customValidityMessage);
           window.customValidation.HASHTAGS.reportValidity();
           window.customValidation.HASHTAGS.addEventListener('input', removeSetCustomValidity);
-          valid = false;
-        } else {
-          valid = true;
+          return false;
         }
       }
 
-      return valid;
+      return true;
 
     }
 
