@@ -39,7 +39,7 @@
     window.constants.photoPreviewImage.style = 'transform: scale(' + (window.constants.photosize / 100) + ')';
   };
 
-  var applyPicturefilter = function (element) {
+  var applyPictureFilter = function (element) {
     value = element.value;
 
     window.constants.photoPreview.classList = 'img-upload__preview';
@@ -73,7 +73,7 @@
   window.constants.photoChangeSize.addEventListener('click', changeSizePhotoPreview);
 
   window.constants.imageUploadEffects.addEventListener('change', function (evt) {
-    applyPicturefilter(evt.target);
+    applyPictureFilter(evt.target);
   });
 
   window.utils.setSlider(ImageEffect.PIN, ImageEffect.LINE, getEffectValue);
