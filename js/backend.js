@@ -5,7 +5,7 @@
 
 window.backend = (function () {
 
-  var CODE_SUCCES = 200;
+  var CODE_SUCCESS = 200;
   var popup = document.querySelector('#messages').content.querySelector('.img-upload__message').cloneNode(true);
 
   return {
@@ -16,7 +16,7 @@ window.backend = (function () {
 
       xhr.addEventListener('load', function () {
         window.constants.mainTag.removeChild(popup);
-        if (xhr.status === CODE_SUCCES) {
+        if (xhr.status === CODE_SUCCESS) {
           onLoad(xhr.response);
         } else {
           onError(xhr.status);
@@ -34,7 +34,7 @@ window.backend = (function () {
 
       xhr.addEventListener('load', function () {
         window.constants.mainTag.removeChild(popup);
-        if (xhr.status === CODE_SUCCES) {
+        if (xhr.status === CODE_SUCCESS) {
           onLoad(xhr.response);
         } else {
           onError(xhr.status);
